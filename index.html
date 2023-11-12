@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dev Portal For Search Books</title>
+    <link id="favicon" rel="icon" href="https://developer.nytimes.com/logos/favicon.ico?v=1600101624226" type="image/png">
+    <link rel="stylesheet" href="/assets/styles/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- header -->
+      <header class="py-3 shadow bg-white">
+      <div class="container-fluid d-flex justify-content-between align-items-center">
+        <img src="https://developer.nytimes.com/logos/logo?v=1600101622804" alt="sos!" class="logo">
+        <div class="d-flex"><input type="text" class="form-control me-2" id="searchInput" />
+          <button class="btn btn-dark" onclick="search()">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+     </header>
+    
+
+     <!-- section Bo'limlar section Kitoblar -->
+     <div class="container-fluid py-3 layout d-flex">
+       <div class="sidebar pe-3">
+         <div class="bg-white shadow rounded-4 p-3 py-3">
+           <h3 class="mb-4">Bo'limlar <i class="fa-solid fa-list fa-beat-fade"></i></h3>
+           <div class="spinner-border text-primary" role="status" id="loading">
+            <span class="visually-hidden">Loading...</span>
+            </div>
+            <div class="py-3" id="error">
+              <h3 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i>Error in the Fetch</h3>
+            </div>
+            
+           <div class="list-group" id="list">
+            <a href="#" class="list-group-item border-0 rounded-4  
+            list-group-item-action active" 
+            >
+              The current link item
+              <p class="d-flex justify-content-between align-items-center m-0 mt-2">
+                <span><i class="fa-solid fas-celendar-days"></i>23.09.2023</span>
+                <span class="badge bg-warning text-light">WEEKLY</span>
+              </p>
+              
+            </a>
+          </div>
+         </div>
+       </div>
+       <div class="content">
+        <div class="bg-white shadow rounded-4 p-3 py-3">
+          <h3 class="mb-4">Kitoblar <i class="fa fa-link"></i></h3>
+          <div class="spinner-border text-primary" role="status" id="loading2">
+            <span class="visually-hidden">Loading...</span>
+            </div>
+          <h4 id="list-name"></h4>
+         
+            <div class="py-3 d-none" id="error2">
+              <h3 class="text-danger"><i class="fa-solid fa-triangle-exclamation"></i>Error in the Fetch</h3>
+            </div>
+            <div class="row" id="books">
+              <!-- <div class="col-6 col-md-4 col-lg-3">
+                <div class="card shadow rounded-4 p-3 bg-white border-0 h-100  flex-column justify-content-between">
+                  <div>
+                    <img src="https://storage.googleapis.com/du-prd/books/images/9781728251035.jpg" class="w-100 rounded-4 img" alt="sos!">
+                  <p class="fw-bold mb-2 mt-4 title">Title:FREED</p>
+                  <p class="text-secondary">Author:Name Author</p>
+                  <p>Price: <span class="text-warning">99.9$</span></p>
+                  </div>
+                  <div class="d-flex">
+                    <a
+                    class="btn btn-dark text-light d-block w-100 rounded-3 me-1"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#productDetail"
+                  >
+                    BUY
+                  </a>
+                  <a
+                  class="btn btn-warning text-light d-block w-100 rounded-3 ms-1"
+                  type="button"
+                  data-bs-toggle="modal"
+                  data-bs-target="#productDetail"
+                >
+                  More
+                </a>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+        </div>
+       </div>
+     </div>
+  
+
+    
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="productDetail"
+        tabindex="-1"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+               Product Details
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+              <!-- <div class="row">
+                <div class="col-md-6">
+                  <img src="https://storage.googleapis.com/du-prd/books/images/9781728251035.jpg" class="w-100 rounded-3" alt="sos!">
+                  <p>Isbn10:None</p>
+                  <p>Isbn13:12344566789</p>
+                </div>
+
+                <div class="col-md-6">
+                  <p class="fw-bold">
+                  Books Name: Freed
+                </p>
+                <p class="fw-bold">
+                  Author: Anika
+                </p>
+                <p class="fw-bold">
+                  Price: <span class="text-warning">10.00$</span>
+                </p>
+                <p class="text-secondary">Lorem Aliquam  dolores, aliquid accusantium quae ullam distinctio repudiandae earum a.</p>
+               
+                <p>Publisher:Marvel</p>
+                <p class="fw-bold">Buy Links:</p>
+                <div class="list-group buy-links list-group-horizontal flex-wrap">
+                  <a href="#" class="list-group-item list-group-item-action">Amazon</a>
+                </div>
+              </div>
+              </div> -->
+          </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <a href="#" type="button" class="btn btn-primary">
+              Buy
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/assets/js/index.js"></script>
+  </body>
+</html>
