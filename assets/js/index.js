@@ -240,7 +240,7 @@ const setBooks = async (obj) => {
     booksArray = res.data.results.books;
 
     loading2.classList.add("d-none");
-    listName.innerHTML = `Bo'lim: ${obj.list_name}`;
+    listName.innerHTML = `Section: ${obj.list_name}`;
     books.classList.remove("d-none");
     mapBooks("");
   } else {
